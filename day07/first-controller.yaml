@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: first-replication-controller
+spec:
+  replicas: 3 # num of pods
+  selector:
+    app: web-server # conditions to select pod (based on pod labels)
+  template:
+    metadata:
+      labels:
+        app: web-server # assigning pod's lable; otherwise, error
+    spec: # defining container
+      containers:
+        - name: first-pod
+          image: cutechuanchuan/nodejs-example:1.0.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+      restartPolicy: Always
