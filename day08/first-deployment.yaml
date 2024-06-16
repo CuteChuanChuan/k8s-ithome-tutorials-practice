@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: first-deployment
+  labels:
+    app: web-server-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-server
+      env: dev
+  template:
+    metadata:
+      labels:
+        app: web-server
+        env: dev
+        version: v2
+    spec:
+      containers:
+        - name: first-pod
+          image: cutechuanchuan/nodejs-example:2.0.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+      restartPolicy: Always
+      
