@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-with-health-check
+  labels:
+    app: web-server-health-check
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pod-checking
+  template:
+    metadata:
+      name: pod-checking
+      labels:
+        app: pod-checking
+    spec:
+      containers:
+        - name: pod-checking
+          image: cutechuanchuan/nodejs-example:2.0.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+              name: pod-port
+          livenessProbe:
+            httpGet:
+              port: pod-port
+              path: /
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            timeoutSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+      restartPolicy: Always

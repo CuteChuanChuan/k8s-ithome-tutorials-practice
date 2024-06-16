@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-label
+  labels:
+    app: pod-with-label-web-server
+    tier: backend
+    role: pod-with-label
+  annotations:
+    name: annotation-name
+    author: raymond
+    language: nodejs
+spec:
+  containers:
+    - name: pod-with-label
+      image: cutechuanchuan/nodejs-example:1.0.0
+      imagePullPolicy: Always
+      ports:
+        - name: pod-with-label
+          containerPort: 3100
+  restartPolicy: Always
+
+  
